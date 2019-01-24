@@ -1,0 +1,29 @@
+﻿@model LearnOnDemand.Models.UserModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>User Details</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Details" asp-controller="Organization" asp-route-id="@Model.OrganizationKey">Back to Organization</a>
+</div>
