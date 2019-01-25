@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace LearnOnDemand.Repositories.Models
+namespace LearnOnDemand.Entities
 {
     public partial class LearnOnDemandContext : DbContext
     {
@@ -20,7 +20,6 @@ namespace LearnOnDemand.Repositories.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,8 +35,6 @@ namespace LearnOnDemand.Repositories.Models
                 entity.Property(e => e.City)
                     .IsRequired()
                     .HasMaxLength(255);
-
-                entity.Property(e => e.Map).HasMaxLength(500);
 
                 entity.Property(e => e.Name)
                     .IsRequired()

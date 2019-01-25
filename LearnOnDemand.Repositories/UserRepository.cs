@@ -1,9 +1,9 @@
-﻿using LearnOnDemand.Interfaces;
+﻿using LearnOnDemand.Entities;
+using LearnOnDemand.Factories;
+using LearnOnDemand.Interfaces;
 using LearnOnDemand.Models;
-using LearnOnDemand.Repositories.Models;
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace LearnOnDemand.Repositories
@@ -19,20 +19,27 @@ namespace LearnOnDemand.Repositories
 
         public async Task<UserModel> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-
-            return new UserModel { Id = user.Id, OrganizationKey = user.OrganizationKey, Name = user.Name, Email = user.Email, };
+            return UserFactory.GetUserModel(await _context.Users.FindAsync(id));
         }
 
         public async Task<int> CreateUser(UserModel model)
         {
-            var user = new Users { Name = model.Name, Email = model.Email, OrganizationKey = model.OrganizationKey };
+            try
+            {
+                var user = UserFactory.GetUser(model);
 
-            _context.Users.Add(user);
+                _context.Users.Add(user);
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return user.Id;
+                return user.Id;
+            }
+            catch(Exception ex)
+            {
+                var message = ex.Message;
+            }
+
+            return 1;
         }
 
         public async Task UpdateUser(UserModel model)

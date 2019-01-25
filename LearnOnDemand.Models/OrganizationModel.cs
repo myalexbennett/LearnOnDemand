@@ -24,7 +24,6 @@ namespace LearnOnDemand.Models
         [Required]
         [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Zipcode")]
         public string Zip { get; set; }
-        public string Map { get; set; }
 
         public List<UserModel> Users { get; set; }
     }

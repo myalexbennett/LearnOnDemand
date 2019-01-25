@@ -22,11 +22,11 @@ namespace LearnOnDemand.Web.Controllers
             return View(await _learnOnDemandClient.GetUser(id));
         }
 
-        public ActionResult Create(int id)
+        public ActionResult Create(int organizationKey)
         {
-            var user = new UserModel { OrganizationKey = id };
+            ViewBag.OrganizationKey = organizationKey;
 
-            return View(user);
+            return View();
         }
 
         [HttpPost]

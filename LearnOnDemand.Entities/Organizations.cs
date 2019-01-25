@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LearnOnDemand.Repositories.Models
+namespace LearnOnDemand.Entities
 {
     public partial class Organizations
     {
@@ -16,7 +16,6 @@ namespace LearnOnDemand.Repositories.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
-        public string Map { get; set; }
 
         public ICollection<Users> Users { get; set; }
     }

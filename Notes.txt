@@ -1,0 +1,1 @@
+Scaffold-DbContext "Server=learnondemand.database.windows.net;Database=LearnOnDemand;User ID=myalexbennett;Password=Learn0nDemand!;" Microsoft.EntityFrameworkCore.SqlServer -f

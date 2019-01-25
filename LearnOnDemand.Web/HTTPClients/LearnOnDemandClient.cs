@@ -28,7 +28,7 @@ namespace LearnOnDemand.Web.HTTPClients
 
         public async Task<List<OrganizationModel>> GetOrganizations()
         {
-            var response = await _client.ExecuteTaskAsync(new RestRequest(GETORGANIZATIONS_URL, Method.GET));
+            var response = await _client.ExecuteTaskAsync(GetRequest(GETORGANIZATIONS_URL, Method.GET));
 
             if(response.IsSuccessful)
             {
@@ -40,13 +40,12 @@ namespace LearnOnDemand.Web.HTTPClients
 
         public async Task<OrganizationModel> GetOrganization(int id)
         {
-            var request = new RestRequest(GETORGANIZATION_URL, Method.GET);
             var parameters = new Dictionary<string, object>()
             {
                 { "id", id }
             };
 
-            parameters.ToList().ForEach(p => request.AddParameter(p.Key, p.Value, ParameterType.UrlSegment));
+            var request = GetRequest(GETORGANIZATION_URL, Method.GET, parameters: parameters);
 
             var response = await _client.ExecuteTaskAsync(request);
 
@@ -60,9 +59,7 @@ namespace LearnOnDemand.Web.HTTPClients
 
         public async Task<int> CreateOrganization(OrganizationModel model)
         {
-            var request = new RestRequest(CREATEORGANIZATION_URL, Method.POST);
-
-            request.AddJsonBody(model);
+            var request = GetRequest(CREATEORGANIZATION_URL, Method.POST, model);
 
             var response = await _client.ExecuteTaskAsync(request);
 
@@ -76,37 +73,31 @@ namespace LearnOnDemand.Web.HTTPClients
 
         public async Task UpdateOrganization(OrganizationModel model)
         {
-            var request = new RestRequest(UPDATEORGANIZATION_URL, Method.PUT);
-
             var parameters = new Dictionary<string, object>()
             {
                 { "id", model.Id }
             };
 
-            parameters.ToList().ForEach(p => request.AddParameter(p.Key, p.Value, ParameterType.UrlSegment));
-
-            request.AddJsonBody(model);
+            var request = GetRequest(UPDATEORGANIZATION_URL, Method.PUT, parameters, model);
 
             await _client.ExecuteTaskAsync(request);
         }
 
         public async Task DeleteOrganization(int id)
         {
-            var request = new RestRequest(DELETEORGANIZATION_URL, Method.DELETE);
-
             var parameters = new Dictionary<string, object>()
             {
                 { "id", id }
             };
 
-            parameters.ToList().ForEach(p => request.AddParameter(p.Key, p.Value, ParameterType.UrlSegment));
+            var request = GetRequest(DELETEORGANIZATION_URL, Method.DELETE, parameters: parameters);
 
             await _client.ExecuteTaskAsync(request);
         }
 
         public async Task<UserModel> GetUser(int id)
         {
-            var request = new RestRequest(GETUSER_URL, Method.GET);
+            var request = GetRequest(GETUSER_URL, Method.GET);
 
             var parameters = new Dictionary<string, object>()
             {
@@ -127,25 +118,19 @@ namespace LearnOnDemand.Web.HTTPClients
 
         public async Task UpdateUser(UserModel model)
         {
-            var request = new RestRequest(UPDATEUSER_URL, Method.PUT);
-
             var parameters = new Dictionary<string, object>()
             {
                 { "id", model.Id }
             };
 
-            parameters.ToList().ForEach(p => request.AddParameter(p.Key, p.Value, ParameterType.UrlSegment));
-
-            request.AddJsonBody(model);
+            var request = GetRequest(UPDATEUSER_URL, Method.PUT, parameters, model);
 
             await _client.ExecuteTaskAsync(request);
         }
 
         public async Task<int> CreateUser(UserModel model)
         {
-            var request = new RestRequest(CREATEUSER_URL, Method.POST);
-
-            request.AddJsonBody(model);
+            var request = GetRequest(CREATEUSER_URL, Method.POST, model);
 
             var response = await _client.ExecuteTaskAsync(request);
 
@@ -159,16 +144,48 @@ namespace LearnOnDemand.Web.HTTPClients
 
         public async Task DeleteUser(int id)
         {
-            var request = new RestRequest(DELETEUSER_URL, Method.DELETE);
-
             var parameters = new Dictionary<string, object>()
             {
                 { "id", id }
             };
 
-            parameters.ToList().ForEach(p => request.AddParameter(p.Key, p.Value, ParameterType.UrlSegment));
+            var request = GetRequest(DELETEUSER_URL, Method.DELETE, parameters: parameters);
 
             await _client.ExecuteTaskAsync(request);
+        }
+
+        private RestRequest GetRequest(string resource, Method method)
+        {
+            return new RestRequest(resource, method);
+        }
+
+        private RestRequest GetRequest(string resource, Method method, Dictionary<string, object> parameters)
+        {
+            var request = new RestRequest(resource, method);
+
+            parameters.ToList().ForEach(p => request.AddParameter(p.Key, p.Value, ParameterType.UrlSegment));
+
+            return request;
+        }
+
+        private RestRequest GetRequest(string resource, Method method, object model)
+        {
+            var request = new RestRequest(resource, method);
+
+            request.AddJsonBody(model);
+
+            return request;
+        }
+
+        private RestRequest GetRequest(string resource, Method method, Dictionary<string, object> parameters, object model)
+        {
+            var request = new RestRequest(resource, method);
+
+            parameters.ToList().ForEach(p => request.AddParameter(p.Key, p.Value, ParameterType.UrlSegment));
+
+            request.AddJsonBody(model);
+
+            return request;
         }
     }
 }

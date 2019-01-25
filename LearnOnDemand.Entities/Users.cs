@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LearnOnDemand.Repositories.Models
+namespace LearnOnDemand.Entities
 {
     public partial class Users
     {

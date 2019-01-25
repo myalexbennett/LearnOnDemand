@@ -1,9 +1,5 @@
 ﻿@model LearnOnDemand.Models.OrganizationModel
 
-@{
-    ViewData["Title"] = "Details";
-}
-
 <h3>Organization Details</h3>
 
 <div>
@@ -52,12 +48,11 @@
 <h4>Organization Users</h4>
 
 <p>
-    <a asp-action="Create" asp-controller="User" asp-route-id="@Model.Id" style="margin-left:10px;" class="btn btn-default">New User</a>
+    <a asp-action="Create" asp-controller="User" asp-route-organizationKey="@Model.Id" style="margin-left:10px;" class="btn btn-default">New User</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Users.SingleOrDefault().Name)
             </th>
@@ -71,9 +66,6 @@
         @foreach (var item in Model.Users)
         {
             <tr>
-                @*<td>
-                    <img style="border-radius: 50%;" src="@item.Avatar" />
-                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>

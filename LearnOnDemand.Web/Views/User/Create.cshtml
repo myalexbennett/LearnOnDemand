@@ -1,12 +1,7 @@
 ﻿@model LearnOnDemand.Models.UserModel
 
-@{
-    ViewData["Title"] = "Create";
-}
+<h3>Create User</h3>
 
-<h2>Create</h2>
-
-<h4>UserModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,7 +17,7 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="OrganizationKey"/>
+            <input type="hidden" asp-for="OrganizationKey" value="@ViewBag.OrganizationKey"/>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -31,7 +26,7 @@
 </div>
 
 <div>
-    <a asp-action="Details" asp-controller="Organization"  asp-route-id="@Model.OrganizationKey">Back to Organization</a>
+    <a asp-action="Details" asp-controller="Organization"  asp-route-id="@ViewBag.OrganizationKey">Back to Organization</a>
 </div>
 
 @section scripts {
