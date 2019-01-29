@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LearnOnDemand.Web.Models;
 using LearnOnDemand.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LearnOnDemand.Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILearnOnDemandClient _learnOnDemandClient;

@@ -68,6 +68,8 @@ namespace LearnOnDemand.Repositories
 
             if (org != null)
             {
+                //org.Users.ToList().ForEach(x => _context.Users.Remove(x));
+
                 foreach (var user in org.Users)
                 {
                     _context.Users.Remove(user);

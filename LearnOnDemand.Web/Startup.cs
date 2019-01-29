@@ -1,5 +1,7 @@
 ﻿using LearnOnDemand.Interfaces;
 using LearnOnDemand.Web.HTTPClients;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +30,9 @@ namespace LearnOnDemand.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAuthentication(AzureADB2CDefaults.AuthenticationScheme)
+                .AddAzureADB2C(options => Configuration.Bind("AzureAdB2C", options));
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -48,6 +53,7 @@ namespace LearnOnDemand.Web
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

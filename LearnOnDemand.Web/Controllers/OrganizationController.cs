@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
 using LearnOnDemand.Interfaces;
 using LearnOnDemand.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnOnDemand.Web.Controllers
 {
+    [Authorize]
     public class OrganizationController : Controller
     {
         private readonly ILearnOnDemandClient _learnOnDemandClient;
